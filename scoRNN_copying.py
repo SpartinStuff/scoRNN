@@ -34,7 +34,7 @@ Target output
 
 # Network Parameters
 model = 'scoRNN'
-T = 2000          # number of zeroes to put between sequence and marker
+T = 1000          # number of zeroes to put between sequence and marker
 n_sequence = 10  # length of sequence to copy
 n_input = 10          # number of possible inputs (0-9)
 n_classes = 9          # number of possible output classes (0-8, 9 is not a valid output)
@@ -276,8 +276,7 @@ with tf.Session() as sess:
     step = 0
     while step < iterations:
         # input data
-        #print((step*batch_size) % train_size,((step+1)*batch_size) % train_size)
-        batch_seq = training_seq[(step*batch_size) % train_size:((step+1)*batch_size)]
+        batch_seq = training_seq[(step*batch_size) % train_size:((step*batch_size) % train_size) + batch_size]
         batch_x, batch_y = copying_data(T, batch_seq)
         
         # Updating weights
